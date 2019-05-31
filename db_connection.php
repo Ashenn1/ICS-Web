@@ -16,5 +16,6 @@ function CloseCon($conn)
  	$conn -> close();
  }
 
+//mysql://b2fc8d6cca888a:0c0acf39@us-cdbr-iron-east-02.cleardb.net/heroku_bf623a5b75d34c9?reconnect=true
 
 ?>
