@@ -4,7 +4,8 @@ include 'db_connection.php';
 $conn = OpenCon();
 
 
-function username_Exists($username){
+
+function username_Exists($username , $conn){
 
 	$query = "SELECT Username FROM user WHERE Username = ?";
 
@@ -26,7 +27,7 @@ function username_Exists($username){
 
 }
 
-function email_Exists($email){
+function email_Exists($email , $conn){
 
 	$query = "SELECT Email FROM user WHERE Email = ?";
 
