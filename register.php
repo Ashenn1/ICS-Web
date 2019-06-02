@@ -21,8 +21,8 @@ if(isset($input['Username']) && isset($input['Email']) && isset($input['Password
 
 	if(!username_Exists($username) && !email_Exists($email)){
 		$insertQuery = "INSERT INTO user(Username,Email,Password) VALUES (?,?,?)";
-		if($stmt = $conn->prepare("sss" , $username,$email ,$password)){
-			$stmt->bind_param("ssss",$username,$fullName,$passwordHash,$salt);
+		if($stmt = $con->prepare($insertQuery)){
+			$stmt->bind_param("sss",$username,$email,$password);
 			$stmt->execute();
 			$response["status"] = 0;
 			$response["message"] = "User created";
