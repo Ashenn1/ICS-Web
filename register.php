@@ -14,10 +14,6 @@ $response = array();
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
-$input['Username']="soha";
-$input['Email']="sohasanad@gmail.com";
-$input['Password']="123456";
-
 //Check for Mandatory parameters
 if(isset($input['Username']) && isset($input['Email']) && isset($input['Password'])){
 	$username = $input['Username'];
