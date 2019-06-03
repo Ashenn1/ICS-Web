@@ -20,12 +20,13 @@ if(isset($input['Email']) && isset($input['Password'])){
 		$stmt->bind_param("ss" , $email , $password);
 		$stmt->execute();
 		$stmt->store_result();
-		$row = $stmt->fetch();
+		$stmt->bind_results($userId , $username , $email , $password);
+		$stmt->fetch();
 		if($stmt->num_rows == 1){
 			$response["status"] = 0;
 			$response["message"] = "Login successful";
-			$response["UserId"]= $row["UserId"];
-			$response["Username"] = $row["Username"];
+			$response["UserId"]= $userId;
+			$response["Username"] = $username;
 		}
 		else{
 				$response["status"] = 1;
