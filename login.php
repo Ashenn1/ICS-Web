@@ -12,8 +12,12 @@ $input = json_decode($inputJSON,TRUE);
 //check mandatory parameters are set
 if(isset($input['Email']) && isset($input['Password'])){
 
-	$email = $input['Email'];
-	$password = $input['Password'];
+	$email = mysqli_escape_string($input['Email']);
+	$email =htmlspecialchars($email);
+
+	$password = mysqli_escape_string($input['Password']);
+	$password = htmlspecialchars($password);
+
 	$query = "SELECT UserId, Username , Email , Password FROM user WHERE Email=? && Password=?";
 
 	if($stmt = $conn->prepare($query)){
