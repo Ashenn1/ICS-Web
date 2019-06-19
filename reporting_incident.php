@@ -32,11 +32,6 @@ if( isset($input['title']) && isset($input['category']) && isset($input['severit
 	if($stmt = $conn->prepare($insertQuery)){
 		$stmt->bind_param("issiiis", $UserId, $title, $category, $severity, $Longitude, $Latitude, $area);
 		$bool = $stmt->execute();
-		if($bool){
-			echo "true";
-		}else{
-			echo "false";
-		}
 		$response["status"] = 0;
 		$response["message"] = "Incident Reported";
 		$stmt->close();
