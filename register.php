@@ -16,13 +16,13 @@ $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
 if(isset($input['Username']) && isset($input['Email']) && isset($input['Password'])){
-	$username = mysqli_escape_string($input['Username']);
+	$username = mysqli_escape_string($conn, $input['Username']);
 	$username =htmlspecialchars($username);
 
-	$email = mysqli_escape_string($input['Email']);
+	$email = mysqli_escape_string($conn, $input['Email']);
 	$email =htmlspecialchars($email);
 
-	$password = mysqli_escape_string($input['Password']);
+	$password = mysqli_escape_string($conn, $input['Password']);
 	$password = htmlspecialchars($password);
 	
 	if(!username_Exists($username , $conn) && !email_Exists($email , $conn)){

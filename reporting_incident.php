@@ -12,22 +12,17 @@ $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
 if( isset($input['title']) && isset($input['category']) && isset($input['severity']) && isset($input['area']) ){
-	/*$title = mysqli_escape_string($input['title']);
+	$title = mysqli_escape_string($conn, $input['title']);
 	$title =htmlspecialchars($title);
 
-	$category = mysqli_escape_string($input['category']);
+	$category = mysqli_escape_string($conn, $input['category']);
 	$category =htmlspecialchars($category);
 
-	$severity = mysqli_escape_string($input['severity']);
+	$severity = mysqli_escape_string($conn, $input['severity']);
 	$severity = htmlspecialchars($severity);
 
-	$area = mysqli_escape_string($input['area']);
-	$area = htmlspecialchars($area);*/
-
-	$title = $input['title'];
-	$category = $input['category'];
-	$severity = $input['severity'];
-	$area = $input['area'];
+	$area = mysqli_escape_string($conn, $input['area']);
+	$area = htmlspecialchars($area);
 
 	$UserId = 1;
 	$Longitude = 31.126242183351;
@@ -45,15 +40,6 @@ if( isset($input['title']) && isset($input['category']) && isset($input['severit
 		$response["status"] = 0;
 		$response["message"] = "Incident Reported";
 		$stmt->close();
-		
-
-		//echo $input['title'] ;
-		//echo $input['area'];
-		//echo $input['severity'];
-		//echo $input['description'];
-
-		//$response["status"] = 0;
-		//$response["message"] = "Successful";
 
 	}
 	else{
