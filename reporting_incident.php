@@ -11,7 +11,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
-if(isset($input['Title']) && isset($input['area']) && isset($input['category'] && isset($input['severity']))){
+if(isset($input['Title']) && isset($input['area']) && isset($input['category']) && isset($input['severity']) ){
 	/*$username = mysqli_escape_string($input['Username']);
 	//$username =htmlspecialchars($username);
 
@@ -39,7 +39,7 @@ if(isset($input['Title']) && isset($input['area']) && isset($input['category'] &
 
 		$response["status"] = 0;
 		$response["message"] = "Successful";
-		
+
 	}
 	else{
 		$response["status"] = 1;
