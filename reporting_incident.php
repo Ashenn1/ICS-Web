@@ -2,7 +2,7 @@
 
 include 'functions.php';
 
-$conn = OpenConLocal();
+$conn = OpenCon();
 
 $response = array();
 
