@@ -11,7 +11,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
-if(isset($input['Title']) && isset($input['area']) && isset($input['category']) && isset($input['severity']) ){
+if(isset($input['title']) && isset($input['area']) && isset($input['category']) ){
 	/*$username = mysqli_escape_string($input['Username']);
 	//$username =htmlspecialchars($username);
 
@@ -32,9 +32,9 @@ if(isset($input['Title']) && isset($input['area']) && isset($input['category']) 
 		}
 		*/
 
-		echo $input['Title'] ;
+		echo $input['title'] ;
 		echo $input['area'];
-		echo $input['severity'];
+		//echo $input['severity'];
 		echo $input['category'];
 
 		$response["status"] = 0;
@@ -43,7 +43,7 @@ if(isset($input['Title']) && isset($input['area']) && isset($input['category']) 
 	}
 	else{
 		$response["status"] = 1;
-		$response["message"] = "User exists";
+		$response["message"] = "reporting was not successful";
 	}
 
 
