@@ -9,7 +9,7 @@ $conn = OpenCon();
 $response = array();
  
 
-$result = mysqli_query($conn , "SELECT *FROM user") or die(mysql_error());
+$result = mysqli_query($conn , "SELECT * FROM user") or die(mysql_error());
 
     // check for empty result
     if (mysqli_num_rows($result) > 0) {

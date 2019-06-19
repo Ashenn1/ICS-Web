@@ -6,6 +6,8 @@ $conn = OpenCon();
 
 
 function username_Exists($username , $conn){
+	$username = mysqli_escape_string($username);
+	$username = htmlspecialchars($username);
 
 	$query = "SELECT Username FROM user WHERE Username = ?";
 
@@ -28,6 +30,8 @@ function username_Exists($username , $conn){
 }
 
 function email_Exists($email , $conn){
+	$email = mysqli_escape_string($email);
+	$email = htmlspecialchars($email);
 
 	$query = "SELECT Email FROM user WHERE Email = ?";
 
