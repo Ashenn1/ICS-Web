@@ -108,7 +108,8 @@
 								'data' => $requestData,
 								'notification' => array (
                 				"body" => $message,
-                				"title" => $title,
+                				"title" => $title
+                				)
 							);
 							
 						}else{
