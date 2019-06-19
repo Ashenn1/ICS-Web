@@ -11,7 +11,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
-if( isset($input['title']) && isset($input['category']) && isset($input['severity']) && isset($input['area']) ){
+if(isset($input['title']) && isset($input['category']) && isset($input['severity']) && isset($input['area']) ){
 	$title = mysqli_escape_string($conn, $input['title']);
 	$title =htmlspecialchars($title);
 
@@ -24,13 +24,26 @@ if( isset($input['title']) && isset($input['category']) && isset($input['severit
 	$area = mysqli_escape_string($conn, $input['area']);
 	$area = htmlspecialchars($area);
 
+	if(isset($input['image'])) {
+		$image = $input['image'];
+	} else {
+		$image = "";
+	}
+	
+	if(isset($input['description'])) {
+		$description = $input['description'];
+	} else {
+		$description = "No Description";
+	}
+	
+
 	$UserId = 1;
 	$Longitude = 31.126242183351;
 	$Latitude = 30.017965481496;
 
-	$insertQuery = "insert into incidents(UserId, Incident_name, Category, Severity, Incident_datetime, Longitude, Latitude, AreaId, Number_of_upvotes, Number_of_downvotes) VALUES (?, ?, ?, ?, SYSDATE(), ?, ?, (SELECT AreaId from Area WHERE Area_Name = ?), 0, 0)";
+	$insertQuery = "insert into incidents(UserId, Incident_name, Description, Category, Severity, Incident_datetime, Longitude, Latitude, AreaId, Incident_photo, Number_of_upvotes, Number_of_downvotes) VALUES (?, ?, ?, ?, ?, SYSDATE(), ?, ?, (SELECT AreaId from Area WHERE Area_Name = ?), ?, 0, 0)";
 	if($stmt = $conn->prepare($insertQuery)){
-		$stmt->bind_param("issiiis", $UserId, $title, $category, $severity, $Longitude, $Latitude, $area);
+		$stmt->bind_param("isssiiiss", $UserId, $title, $description, $category, $severity, $Longitude, $Latitude, $area, $image);
 		$bool = $stmt->execute();
 		$response["status"] = 0;
 		$response["message"] = "Incident Reported";
