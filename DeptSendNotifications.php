@@ -106,6 +106,9 @@
 							$fields = array(
 								'to' => $topic_url.$topic,
 								'data' => $requestData,
+								'notification' => array (
+                				"body" => $mess,
+                				"title" => "Title",
 							);
 							
 						}else{
@@ -139,7 +142,7 @@
  
 						// Disabling SSL Certificate support temporarily
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-						
+
 						curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
  					
 						curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
