@@ -1,6 +1,6 @@
 <?php
 // API access key from Google API's Console
-define( 'API_ACCESS_KEY', 'AIzaSyBO3PyPW7xh5sXEOjWCZVV1VAvcmVqQpy0' );
+define( 'API_ACCESS_KEY', 'Super_Secret_Key' );
 
 //$registrationIds = array( $_GET['id'] );
 // prep the bundle

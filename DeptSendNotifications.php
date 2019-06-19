@@ -107,8 +107,8 @@
 								'to' => $topic_url.$topic,
 								'data' => $requestData,
 								'notification' => array (
-                				"body" => $mess,
-                				"title" => "Title",
+                				"body" => $message,
+                				"title" => $title,
 							);
 							
 						}else{
