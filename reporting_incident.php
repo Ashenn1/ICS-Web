@@ -2,7 +2,7 @@
 
 include 'functions.php';
 
-$conn = OpenCon();
+$conn = OpenConLocal();
 
 $response = array();
 
@@ -11,42 +11,55 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
-if(isset($input['title']) && isset($input['category']) && isset($input['severity']) && isset($input['area']) ){
-	/*$username = mysqli_escape_string($input['Username']);
-	//$username =htmlspecialchars($username);
+if( isset($input['title']) && isset($input['category']) && isset($input['severity']) && isset($input['area']) ){
+	/*$title = mysqli_escape_string($input['title']);
+	$title =htmlspecialchars($title);
 
-	$email = mysqli_escape_string($input['Email']);
-	$email =htmlspecialchars($email);
+	$category = mysqli_escape_string($input['category']);
+	$category =htmlspecialchars($category);
 
-	$password = mysqli_escape_string($input['Password']);
-	$password = htmlspecialchars($password);*/
-	/*
-	if(!username_Exists($username , $conn) && !email_Exists($email , $conn)){
-		$insertQuery = "INSERT INTO user(Username,Email,Password) VALUES (?,?,?)";
-		if($stmt = $conn->prepare($insertQuery)){
-			$stmt->bind_param("sss",$username,$email,$password);
-			$stmt->execute();
-			$response["status"] = 0;
-			$response["message"] = "User created";
-			$stmt->close();
+	$severity = mysqli_escape_string($input['severity']);
+	$severity = htmlspecialchars($severity);
+
+	$area = mysqli_escape_string($input['area']);
+	$area = htmlspecialchars($area);*/
+
+	$title = $input['title'];
+	$title = $input['category'];
+	$severity = $input['severity'];
+	$area = $input['area'];
+
+	$UserId = 1;
+	$Longitude = 31.126242183351;
+	$Latitude = 30.017965481496;
+
+	$insertQuery = "insert into incidents(UserId, Incident_name, Category, Severity, Incident_datetime, Longitude, Latitude, AreaId, Number_of_upvotes, Number_of_downvotes) VALUES (?, ?, ?, ?, SYSDATE(), ?, ?, (SELECT AreaId from Area WHERE Area_Name = ?), 0, 0)";
+	if($stmt = $conn->prepare($insertQuery)){
+		$stmt->bind_param("issiiis", $UserId, $title, $category, $severity, $Longitude, $Latitude, $area);
+		$bool = $stmt->execute();
+		if($bool){
+			echo "true";
+		}else{
+			echo "false";
 		}
-		*/
+		$response["status"] = 0;
+		$response["message"] = "Incident Reported";
+		$stmt->close();
+		
 
-		echo $input['title'] ;
-		echo $input['area'];
+		//echo $input['title'] ;
+		//echo $input['area'];
 		//echo $input['severity'];
 		//echo $input['description'];
 
-		$response["status"] = 0;
-		$response["message"] = "Successful";
+		//$response["status"] = 0;
+		//$response["message"] = "Successful";
 
 	}
 	else{
 		$response["status"] = 1;
 		$response["message"] = "reporting was not successful";
 	}
-
-
 echo json_encode($response);
-
+}
 ?>
