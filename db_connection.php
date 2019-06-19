@@ -10,6 +10,17 @@ function OpenCon()
 	 
 	 return $conn;
  }
+
+ function OpenConnLocal(){
+
+ 	$dbhost = "localhost";
+ 	$dbuser = "root";
+ 	$dbpass = "123456789";
+ 	$db = "incidentsdb";
+
+ 	$conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
+ 	return $conn;
+ }
  
 function CloseCon($conn)
  {
