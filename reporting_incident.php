@@ -1,6 +1,6 @@
 <?php
 
-include 'db_connection.php';
+include 'functions.php';
 
 $conn = OpenCon();
 
@@ -11,7 +11,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
-if(isset($input['title']) && isset($input['area']) && isset($input['description']) ){
+if(isset($input['title']) && isset($input['area']) && isset($input['category'])  ){
 	/*$username = mysqli_escape_string($input['Username']);
 	//$username =htmlspecialchars($username);
 
@@ -35,7 +35,7 @@ if(isset($input['title']) && isset($input['area']) && isset($input['description'
 		echo $input['title'] ;
 		echo $input['area'];
 		//echo $input['severity'];
-		echo $input['description'];
+		//echo $input['description'];
 
 		$response["status"] = 0;
 		$response["message"] = "Successful";
