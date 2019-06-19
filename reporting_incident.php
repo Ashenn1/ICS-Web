@@ -25,7 +25,7 @@ if( isset($input['title']) && isset($input['category']) && isset($input['severit
 	$area = htmlspecialchars($area);*/
 
 	$title = $input['title'];
-	$title = $input['category'];
+	$category = $input['category'];
 	$severity = $input['severity'];
 	$area = $input['area'];
 
