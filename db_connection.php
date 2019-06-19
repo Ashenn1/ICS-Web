@@ -11,7 +11,7 @@ function OpenCon()
 	 return $conn;
  }
 
- function OpenConnLocal(){
+ function OpenConLocal(){
 
  	$dbhost = "localhost";
  	$dbuser = "root";
