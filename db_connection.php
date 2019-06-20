@@ -15,7 +15,7 @@ function OpenCon()
 
  	$dbhost = "localhost";
  	$dbuser = "root";
- 	$dbpass = "ROOT";
+ 	$dbpass = "123456789";
  	$db = "incidentsdb";
 
  	$conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
