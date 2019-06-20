@@ -107,8 +107,9 @@
 								'to' => $topic_url.$topic,
 								'data' => $requestData,
 								'notification' => array (
-                				"body" => $message,
-                				"title" => $title
+                				'body' => $message,
+                				'title' => $title,
+                				'click_action' =>'.NotificationHistoryActivity'
                 				)
 							);
 							
