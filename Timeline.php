@@ -1,8 +1,11 @@
 <?php 
-include 'functions.php';
+//include 'db_connection.php';
 //include 'login.php';
+
+include'functions.php'
+
 //$conn= OpenCon();
-$conn= OpenConnLocal();
+$conn= OpenConLocal();
 $response= array();
 
 
@@ -11,7 +14,7 @@ $input = json_decode($inputJSON,TRUE);
 
 
 if(isset($input['User-Id'])){
-
+  
 	$userId= mysqli_escape_string($input['User-Id']);
 	$userId =htmlspecialchars($userId);
 
@@ -52,17 +55,17 @@ if($stmt = $conn->prepare($query_1)){
 			array_push($response["Incident"], $Incident);
 			
 		}
+		echo json_encode($response);
 		
 	}
 	
+  } }
 }
+
+
 else{
-	$response["message"] = "Missing mandatory parameters";
-}
-
-		}
-			
-echo json_encode($response);
-
-
+	 $response["message"] = "Missing mandatory parameters";
+	 echo json_encode($response);
+    }
+					
  ?>
