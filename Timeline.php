@@ -2,7 +2,7 @@
 //include 'db_connection.php';
 //include 'login.php';
 
-include'functions.php'
+include'functions.php';
 
 //$conn= OpenCon();
 $conn= OpenConLocal();
@@ -13,10 +13,11 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON,TRUE);
 
 
-if(isset($input['User-Id'])){
+if(isset($input['userId'])){
   
-	$userId= mysqli_escape_string($input['User-Id']);
+	$userId= mysqli_escape_string($conn, $input['userId']);
 	$userId =htmlspecialchars($userId);
+	echo $userId;
 
 
 
@@ -59,13 +60,18 @@ if($stmt = $conn->prepare($query_1)){
 		
 	}
 	
-  } }
-}
-
-
-else{
+  }
+  else{
 	 $response["message"] = "Missing mandatory parameters";
 	 echo json_encode($response);
     }
+
+   }
+}
+
+
+ else{
+	echo "Input is not exist ";
+ }
 					
  ?>
