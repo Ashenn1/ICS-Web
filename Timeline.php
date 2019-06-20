@@ -1,10 +1,23 @@
 <?php 
 include 'functions.php';
 //include 'login.php';
-$conn= OpenCon();
-$data= array();
-$response["Incident"]= array();
-$userId=1;
+//$conn= OpenCon();
+$conn= OpenConnLocal();
+$response= array();
+
+
+$inputJSON = file_get_contents('php://input');
+$input = json_decode($inputJSON,TRUE);
+
+
+if(isset($input['User-Id'])){
+
+	$userId= mysqli_escape_string($input['User-Id']);
+	$userId =htmlspecialchars($userId);
+
+
+
+
  $query_1 ="SELECT AreaId From  user Where  UserId = ? ";
 
 if($stmt = $conn->prepare($query_1)){
@@ -19,6 +32,8 @@ if($stmt = $conn->prepare($query_1)){
          $result= mysqli_query($conn,$query) ;    
 
        if (mysqli_num_rows($result) > 0) {
+
+       	    $response["Incident"]= array();
 
         	 $num_rows = mysqli_num_rows($result);
 
