@@ -5,6 +5,7 @@
 include'functions.php';
 
 //$conn= OpenCon();
+
 $conn= OpenConLocal();
 $response= array();
 
@@ -13,25 +14,24 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON,TRUE);
 
 
+
 if(isset($input['userId'])){
   
 	$userId= mysqli_escape_string($conn, $input['userId']);
 	$userId =htmlspecialchars($userId);
 	echo $userId;
 
+ 	$query_1 = "SELECT AreaId From  user Where  UserId = ? ";
 
-
-
- $query_1 ="SELECT AreaId From  user Where  UserId = ? ";
-
-if($stmt = $conn->prepare($query_1)){
+	if($stmt = $conn->prepare($query_1)){
 		$stmt->bind_param("s" , $userId);
 		$stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($Area_id );
+		$stmt->bind_result($Area_id);
 		$stmt->fetch();
 		if($stmt->num_rows >= 1){
           
+
                $query = "SELECT user.Username, Incident_name, Description, Category, Severity, Incident_datetime, Number_of_upvotes, Number_of_downvotes FROM user, incidents WHERE incidents.AreaId ='$Area_id' && user.UserId= incidents.UserId ";
          $result= mysqli_query($conn,$query) ;    
 
@@ -57,9 +57,7 @@ if($stmt = $conn->prepare($query_1)){
 			
 		}
 		echo json_encode($response);
-		
-	}
-	
+
   }
   else{
 	 $response["message"] = "Missing mandatory parameters";
@@ -68,7 +66,7 @@ if($stmt = $conn->prepare($query_1)){
 
    }
 }
-
+}
 
  else{
 	echo "Input is not exist ";
