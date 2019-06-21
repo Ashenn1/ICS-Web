@@ -57,6 +57,7 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 echo json_encode($response);
 }
 
+/*
 //Send notification to other users in the same area.
 // Set POST variables
 
@@ -115,5 +116,7 @@ echo json_encode($response);
  
 	// Close connection
 	curl_close($ch);
+
+*/
 
 ?>
