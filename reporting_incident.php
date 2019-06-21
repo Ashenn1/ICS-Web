@@ -64,7 +64,7 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 
 	//Get api from : firebase console->Project Options -> cloud Messaging -> server key
 	$firebase_api = "AAAAXfqub3w:APA91bGn8dzeUx-Z0kSI03emL14bANuk81CHpm6oGrqplg2hKi7aukeGZZvqK4Tq4_2yhSdfK5-s7M9KAwRPVevhH1cFC0w5TquSXvogQgos4xwPqcSIF7qiB9rCXoOd0xIOsvj3PVhJ";
-	
+
 	$topic_url = "/topics/";
  
 	$headers = array(
@@ -82,7 +82,8 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 					'data' => $requestData,
 					'notification' => array (
                 	"body" => $description,
-                	"title" => $title
+                	"title" => $title,
+                	'click_action' =>'.NotificationHistoryActivity'
                 		)
 				);
 
@@ -120,66 +121,5 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 echo json_encode($response);
 }
 
-/*
-//Send notification to other users in the same area.
-// Set POST variables
-
-	$area = str_replace(' ', '', $area);	//stripping of all spaces
-	$url = 'https://fcm.googleapis.com/fcm/send';
-
-	//Get api from : firebase console->Project Options -> cloud Messaging -> server key
-	$firebase_api = "Super_secret_key";
-	$topic_url = "/topics/";
- 
-	$headers = array(
-			'Authorization: key=' . $firebase_api,
-			'Content-Type: application/json'
-			);
-
-	$requestData = array(
-		"body" => $description,
-        "title" => $title
-	);
-
-	$fields = array(
-					'to' => $topic_url.$area,
-					'data' => $requestData,
-					'notification' => array (
-                	"body" => $description,
-                	"title" => $title
-                		)
-				);
-
-	// Open connection
-	$ch = curl_init();
- 
-	// Set the url, number of POST vars, POST data
-	curl_setopt($ch, CURLOPT_URL, $url);
- 
-	//curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"POST");
-
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
- 
-	// Disabling SSL Certificate support temporarily
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-	curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
- 					
-	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
- 						
-
-	// Execute post
-
-	$result = curl_exec($ch);
-			//if($result === FALSE){
-			//	die('Curl failed: ' . curl_error($ch));
-			//}
- 
-	// Close connection
-	curl_close($ch);
-
-*/
 
 ?>
