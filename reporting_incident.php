@@ -54,6 +54,68 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 		$response["status"] = 1;
 		$response["message"] = "reporting was not successful";
 	}
+
+
+//Send notification to other users in the same area.
+// Set POST variables
+
+	$area = str_replace(' ', '', $area);	//stripping of all spaces
+	$url = 'https://fcm.googleapis.com/fcm/send';
+
+	//Get api from : firebase console->Project Options -> cloud Messaging -> server key
+	$firebase_api = "Super_secret_key";
+	$topic_url = "/topics/";
+ 
+	$headers = array(
+			'Authorization: key=' . $firebase_api,
+			'Content-Type: application/json'
+			);
+
+	$requestData = array(
+		"body" => $description,
+        "title" => $title
+	);
+
+	$fields = array(
+					'to' => $topic_url.$area,
+					'data' => $requestData,
+					'notification' => array (
+                	"body" => $description,
+                	"title" => $title
+                		)
+				);
+
+	// Open connection
+	$ch = curl_init();
+ 
+	// Set the url, number of POST vars, POST data
+	curl_setopt($ch, CURLOPT_URL, $url);
+ 
+	//curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"POST");
+
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+ 
+	// Disabling SSL Certificate support temporarily
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+	curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
+ 					
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+ 						
+
+	// Execute post
+
+	$result = curl_exec($ch);
+			//if($result === FALSE){
+			//	die('Curl failed: ' . curl_error($ch));
+			//}
+ 
+	// Close connection
+	curl_close($ch);
+
+
 echo json_encode($response);
 }
 
@@ -110,9 +172,9 @@ echo json_encode($response);
 	// Execute post
 
 	$result = curl_exec($ch);
-			if($result === FALSE){
-				die('Curl failed: ' . curl_error($ch));
-			}
+			//if($result === FALSE){
+			//	die('Curl failed: ' . curl_error($ch));
+			//}
  
 	// Close connection
 	curl_close($ch);
