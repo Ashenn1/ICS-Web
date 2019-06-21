@@ -63,7 +63,8 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 	$url = 'https://fcm.googleapis.com/fcm/send';
 
 	//Get api from : firebase console->Project Options -> cloud Messaging -> server key
-	$firebase_api = "Super_secret_key";
+	$firebase_api = "AAAAXfqub3w:APA91bGn8dzeUx-Z0kSI03emL14bANuk81CHpm6oGrqplg2hKi7aukeGZZvqK4Tq4_2yhSdfK5-s7M9KAwRPVevhH1cFC0w5TquSXvogQgos4xwPqcSIF7qiB9rCXoOd0xIOsvj3PVhJ";
+	
 	$topic_url = "/topics/";
  
 	$headers = array(
