@@ -53,6 +53,40 @@ function email_Exists($email , $conn){
 
 }
 
+function getUserNameFromUserTable($userId, $conn){
+
+	//$conn = OpenConLocal();
+
+	$query = "SELECT Username From user Where UserId = ? ";
+
+	if($stmt = $conn->prepare($query)){
+		$stmt->bind_param("s" , $userId);
+		$stmt->execute();
+		$stmt->store_result();
+		$stmt->bind_result($userName);
+		$stmt->fetch();
+		if($stmt->num_rows >= 1){
+			return $userName;
+		}
+	}
+}
+
+function getAreaFromAreaTable($areaId, $conn){
+	//$conn = OpenConLocal();
+
+	$query = "SELECT Area_Name From area Where AreaId = ? ";
+
+	if($stmt = $conn->prepare($query)){
+		$stmt->bind_param("s" , $areaId);
+		$stmt->execute();
+		$stmt->store_result();
+		$stmt->bind_result($areaName);
+		$stmt->fetch();
+		if($stmt->num_rows >= 1){
+			return $areaName;
+		}
+	}
+}
 
 
 ?>

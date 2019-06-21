@@ -1,12 +1,11 @@
 <?php 
-//include 'db_connection.php';
+include 'db_connection.php';
 //include 'login.php';
 
-include'functions.php';
-
-//$conn= OpenCon();
+//include'functions.php';
 
 $conn= OpenCon();
+
 $response= array();
 
 
@@ -46,11 +45,12 @@ if(isset($input['userId'])){
 				$Incident["incidentTitle"] = $row["Incident_name"];
 				$Incident["incidentDescription"] = $row["Description"];
 				$Incident["incidentCategory"] = $row["Category"];
-				$Incident["incidentSeverity"]= $row["Severity"];
+				$Incident["incidentsSverity"]= $row["Severity"];
 	            $Incident["incidentDateTime"]= $row["Incident_datetime"];
 				$Incident["UpVote"] = $row["Number_of_upvotes"];
 				$Incident["DownVote"] = $row["Number_of_downvotes"];
-				$Incident["IncidentId"] = $row["IncidentId"];
+				$Incident["IncidentID"] = $row["IncidentId"];
+
 				array_push($response["Incident"], $Incident);
 				
 			}
@@ -66,8 +66,11 @@ if(isset($input['userId'])){
 	}
 }
 
+
 else{
-	echo "Input doesnt exist ";
+	$response["message"] = "Input doesnt exist";
+	echo $response;
  }
+
 					
  ?>

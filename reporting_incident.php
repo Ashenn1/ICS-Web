@@ -2,7 +2,7 @@
 
 include 'functions.php';
 
-$conn = OpenCon();
+$conn = OpenConLocal();
 
 $response = array();
 
@@ -41,7 +41,9 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 	$Longitude = 31.126242183351;
 	$Latitude = 30.017965481496;
 
-	$insertQuery = "insert into incidents(UserId, Incident_name, Description, Category, Severity, Incident_datetime, Longitude, Latitude, AreaId, Incident_photo, Number_of_upvotes, Number_of_downvotes) VALUES (?, ?, ?, ?, ?, SYSDATE(), ?, ?, (SELECT AreaId from Area WHERE Area_Name = ?), ?, 0, 0)";
+	$insertQuery = "insert into incidents(UserId, Incident_name, Description, Category, Severity, ";
+	$insertQuery .= "Incident_datetime, Longitude, Latitude, AreaId, Incident_photo, Number_of_upvotes, Number_of_downvotes) ";
+	$insertQuery .= "VALUES (?, ?, ?, ?, ?, SYSDATE(), ?, ?, (SELECT AreaId from Area WHERE Area_Name = ?), ?, 0, 0)";
 	if($stmt = $conn->prepare($insertQuery)){
 		$stmt->bind_param("isssiiiss", $UserId, $title, $description, $category, $severity, $Longitude, $Latitude, $area, $image);
 		$bool = $stmt->execute();
