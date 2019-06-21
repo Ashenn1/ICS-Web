@@ -29,7 +29,7 @@ if(isset($input['Username']) && isset($input['Email']) && isset($input['Password
 	$areaName = htmlspecialchars($areaName);
 	
 	if(!username_Exists($username , $conn) && !email_Exists($email , $conn)){
-		$insertQuery = "INSERT INTO user(Username,Email,Password) VALUES 
+		$insertQuery = "INSERT INTO user(Username,Email,Password,AreaId) VALUES 
 		(?,?,?,(SELECT AreaId from Area WHERE Area_name = ?))";
 
 		if($stmt = $conn->prepare($insertQuery)){
