@@ -2,7 +2,7 @@
 
 include 'functions.php';
 
-$conn = OpenCon();
+$conn = OpenConLocal();
 
 $response = array();
 
@@ -41,7 +41,9 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 	$Longitude = 31.126242183351;
 	$Latitude = 30.017965481496;
 
-	$insertQuery = "insert into incidents(UserId, Incident_name, Description, Category, Severity, Incident_datetime, Longitude, Latitude, AreaId, Incident_photo, Number_of_upvotes, Number_of_downvotes) VALUES (?, ?, ?, ?, ?, SYSDATE(), ?, ?, (SELECT AreaId from Area WHERE Area_Name = ?), ?, 0, 0)";
+	$insertQuery = "insert into incidents(UserId, Incident_name, Description, Category, Severity, ";
+	$insertQuery .= "Incident_datetime, Longitude, Latitude, AreaId, Incident_photo, Number_of_upvotes, Number_of_downvotes) ";
+	$insertQuery .= "VALUES (?, ?, ?, ?, ?, SYSDATE(), ?, ?, (SELECT AreaId from Area WHERE Area_Name = ?), ?, 0, 0)";
 	if($stmt = $conn->prepare($insertQuery)){
 		$stmt->bind_param("isssiiiss", $UserId, $title, $description, $category, $severity, $Longitude, $Latitude, $area, $image);
 		$bool = $stmt->execute();
@@ -54,8 +56,7 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 		$response["status"] = 1;
 		$response["message"] = "reporting was not successful";
 	}
-echo json_encode($response);
-}
+
 
 //Send notification to other users in the same area.
 // Set POST variables
@@ -64,7 +65,8 @@ echo json_encode($response);
 	$url = 'https://fcm.googleapis.com/fcm/send';
 
 	//Get api from : firebase console->Project Options -> cloud Messaging -> server key
-	$firebase_api = "Super_secret_key";
+	$firebase_api = "AAAAXfqub3w:APA91bGn8dzeUx-Z0kSI03emL14bANuk81CHpm6oGrqplg2hKi7aukeGZZvqK4Tq4_2yhSdfK5-s7M9KAwRPVevhH1cFC0w5TquSXvogQgos4xwPqcSIF7qiB9rCXoOd0xIOsvj3PVhJ";
+
 	$topic_url = "/topics/";
  
 	$headers = array(
@@ -82,7 +84,8 @@ echo json_encode($response);
 					'data' => $requestData,
 					'notification' => array (
                 	"body" => $description,
-                	"title" => $title
+                	"title" => $title,
+                	'click_action' =>'.NotificationHistoryActivity'
                 		)
 				);
 
@@ -109,11 +112,16 @@ echo json_encode($response);
 	// Execute post
 
 	$result = curl_exec($ch);
-			if($result === FALSE){
-				die('Curl failed: ' . curl_error($ch));
-			}
+			//if($result === FALSE){
+			//	die('Curl failed: ' . curl_error($ch));
+			//}
  
 	// Close connection
 	curl_close($ch);
+
+
+echo json_encode($response);
+}
+
 
 ?>
