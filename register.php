@@ -15,7 +15,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
-if(isset($input['Username']) && isset($input['Email']) && isset($input['Password'])){
+if(isset($input['Username']) && isset($input['Email']) && isset($input['Password']) && isset($input["AreaName"])){
 	$username = mysqli_escape_string($conn, $input['Username']);
 	$username =htmlspecialchars($username);
 
@@ -24,11 +24,16 @@ if(isset($input['Username']) && isset($input['Email']) && isset($input['Password
 
 	$password = mysqli_escape_string($conn, $input['Password']);
 	$password = htmlspecialchars($password);
+
+	$areaName = mysqli_escape_string($conn, $input['AreaName']);
+	$areaName = htmlspecialchars($areaName);
 	
 	if(!username_Exists($username , $conn) && !email_Exists($email , $conn)){
-		$insertQuery = "INSERT INTO user(Username,Email,Password) VALUES (?,?,?)";
+		$insertQuery = "INSERT INTO user(Username,Email,Password) VALUES 
+		(?,?,?,(SELECT AreaId from Area WHERE Area_name = ?))";
+
 		if($stmt = $conn->prepare($insertQuery)){
-			$stmt->bind_param("sss",$username,$email,$password);
+			$stmt->bind_param("ssss",$username,$email,$password,$areaName);
 			$stmt->execute();
 			$response["status"] = 0;
 			$response["message"] = "User created";
