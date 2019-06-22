@@ -4,9 +4,9 @@ include 'db_connection.php';
 
 //include'functions.php';
 
-$conn= OpenCon();
+//$conn= OpenCon();
 
-//$conn= OpenConLocal();
+$conn= OpenConLocal();
 $response= array();
 
 
@@ -46,7 +46,7 @@ if(isset($input['userId'])){
 				$Incident["incidentTitle"] = $row["Incident_name"];
 				$Incident["incidentDescription"] = $row["Description"];
 				$Incident["incidentCategory"] = $row["Category"];
-				$Incident["incidentsSverity"]= $row["Severity"];
+				$Incident["incidentSeverity"]= $row["Severity"];
 	            $Incident["incidentDateTime"]= $row["Incident_datetime"];
 				$Incident["UpVote"] = $row["Number_of_upvotes"];
 				$Incident["DownVote"] = $row["Number_of_downvotes"];
