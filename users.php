@@ -33,6 +33,7 @@ $result = mysqli_query($conn , "SELECT * FROM user") or die(mysql_error());
             $users["longitude"] = $row["Longitude"];
             $users["latitude"] = $row["Latitude"];
             $users["rating"] = $row["Rating"];
+            $users["AreaId"] = $row["AreaId"];
  
             array_push($response["users"], $users);
  

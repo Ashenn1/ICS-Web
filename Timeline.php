@@ -4,9 +4,12 @@ include 'db_connection.php';
 
 //include'functions.php';
 
-//$conn= OpenCon();
+$conn= OpenCon();
 
-$conn= OpenConLocal();
+
+//$conn= OpenConLocal();
+
+
 $response= array();
 
 
@@ -51,6 +54,7 @@ if(isset($input['userId'])){
 				$Incident["UpVote"] = $row["Number_of_upvotes"];
 				$Incident["DownVote"] = $row["Number_of_downvotes"];
 				$Incident["IncidentID"] = $row["IncidentId"];
+
 				array_push($response["Incident"], $Incident);
 				
 			}
@@ -66,6 +70,11 @@ if(isset($input['userId'])){
 	}
 }
 
+
+else{
+	$response["message"] = "Input doesnt exist";
+	
+ }
 
 					
  ?>
