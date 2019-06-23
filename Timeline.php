@@ -32,7 +32,7 @@ if(isset($input['userId'])){
 		if($stmt->num_rows >= 1){
           
 
-        	$query = "SELECT user.Username, Incident_name, Description, Category, Severity, Incident_datetime, Number_of_upvotes, Number_of_downvotes,IncidentId FROM user, incidents WHERE incidents.AreaId = $Area_id and user.UserId= incidents.UserId ";
+        	$query = "SELECT user.Username, Incident_name, Description, Category, Severity, Incident_datetime, Number_of_upvotes, Number_of_downvotes,IncidentId FROM user, incidents WHERE incidents.AreaId = $Area_id and user.UserId= incidents.UserId ORDER BY IncidentId DESC";
         	$result= mysqli_query($conn, $query) ;    
 
        		if (mysqli_num_rows($result) > 0) {
