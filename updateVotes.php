@@ -25,17 +25,17 @@ if(isset($input['Vote']) && isset($input['IncidentId'])&& isset($input['VoteType
 
    if($Type=='UpVote')
    {
-       $query = "UPDATE incidents SET Number_of_upvotes=? WHERE IncidentId?";
+       $query = "UPDATE incidents SET Number_of_upvotes = ? WHERE IncidentId = ?";
 
    }
    else{
-     	$query = "UPDATE incidents SET Number_of_downvotes=? WHERE IncidentId?";
+     	$query = "UPDATE incidents SET Number_of_downvotes = ? WHERE IncidentId = ?";
 
        }
 	
 
 	if($stmt = $conn->prepare($query)){
-		$stmt->bind_param("s" , $Incident_Id);
+		$stmt->bind_param("ss", $VoteNum, $Incident_Id);
 		$bool=$stmt->execute();
 		$response["status"] = 0;
 		$response["message"] = "Votes Updated";
