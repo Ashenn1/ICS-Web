@@ -2,7 +2,7 @@
 
 include 'functions.php';
 
-$conn = OpenConLocal();
+$conn = OpenCon();
 
 $response = array();
 
@@ -11,7 +11,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); //convert JSON into array
 
 //Check for Mandatory parameters
-if(isset($input['title']) && isset($input['category']) && isset($input['severity']) && isset($input['area']) ){
+if(isset($input['title']) && isset($input['category']) && isset($input['severity']) && isset($input['area']) && isset($input['user_id'])){
 	$title = mysqli_escape_string($conn, $input['title']);
 	$title =htmlspecialchars($title);
 
@@ -36,8 +36,9 @@ if(isset($input['title']) && isset($input['category']) && isset($input['severity
 		$description = "No Description";
 	}
 	
-
-	$UserId = 1;
+	$UserId = mysqli_escape_string($conn, $input['user_id']);
+	$UserId = htmlspecialchars($UserId);;
+	
 	$Longitude = 31.126242183351;
 	$Latitude = 30.017965481496;
 
